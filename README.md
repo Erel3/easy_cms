@@ -52,7 +52,7 @@ Commands executed in this order:
 **Stopping cms**  
 **Importing tasks**  
 **Updating tasks**  
-**Starting contest**
+**Starting contest**  
 **Starting bot**  
 
 ## First steps on Amazon Web Servers

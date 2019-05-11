@@ -24,6 +24,7 @@ Example: **python3 ./easy_cms --task_import https://<i></i>polygon.codeforces.co
 ## Update task from Polygon  
 Run script with **-tu %task_link%** flag and specify link to task.  
 Example: **python3 ./easy_cms --task_update https://<i></i>polygon.codeforces.com/p85dIBF/mmirzayanov/a-plus-b**  
+Note: It updates task with the same name as it named in Polygon.  
 
 ## Starting contest  
 Run script with **-s %contest_id%** flag and specify indexes of ip addreses written in **settings.py** numbered from zero.  
@@ -33,17 +34,26 @@ Example: **python3 ./easy_cms 0 1 2 3 -s 1**
 Run script with **--stop** flag and specify indexes of ip addreses written in **settings.py** numbered from zero.  
 Example: **python3 ./easy_cms 0 1 2 3 --stop**  
 
+## Start telegram bot  
+Bot allows you to communicate with participants: send announcements and answer questions. Create telegram bot. Configure token and secret it in **settings.py**.  
+Send **/secret %your_secret%**. Enjoy!  
+To announce send **/a %subject%\n %text%**.  
+To answer question press button or reply to message.  
+Run script with **--bot %contest_id%** flag.  
+Example: **python3 ./easy_cms --bot 1**  
+
 ## ...  
 You can combine commands.  
 Example: **python3 ./easy_cms 0 1 2 3 -i --start_admin**  
-Commands operations executed in this order:  
+Commands executed in this order:  
 **Installation**  
 **Updating configs**  
 **Starting AdminWebServer**  
 **Stopping cms**  
 **Importing tasks**  
 **Updating tasks**  
-**Starting cms**  
+**Starting contest**
+**Starting bot**  
 
 ## First steps on Amazon Web Servers
  *  Launch Ubuntu 16.04 EC2 Instances (one of the best choices is t2.medium with ~20GB SSD).
@@ -60,3 +70,4 @@ Commands operations executed in this order:
          *  Do not forget to configure scoring type for every task.
      *  Add users.
  *  Run **python3 ./easy_cms 0 1 2 -s 1** to start contest for users.
+ *  Run **python3 ./easy_cms --bot 1** to start bot.

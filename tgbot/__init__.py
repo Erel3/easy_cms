@@ -29,11 +29,12 @@ def signal_handler(sig, frame):
 
 @bot.message_handler(commands=['secret', 's'])
 def check_secret(message):
-    if(message.text.split(' ', 1)[1] == config.secret):
-        users[message.chat.id] = {}
-        bot.reply_to(message, "correct")
-    else:
-        bot.reply_to(message, "wrong secret")
+    if len(message.text.split(' ', 1)) > 1:
+        if(message.text.split(' ', 1)[1] == config.secret):
+            users[message.chat.id] = {}
+            bot.reply_to(message, "correct")
+        else:
+            bot.reply_to(message, "wrong secret")
 
 
 @bot.message_handler(commands=['announcement', 'a'])
@@ -86,7 +87,10 @@ def answer_clar(message):
     markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
     markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
             telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-    bot.edit_message_reply_markup(message.chat.id, message.reply_to_message.message_id, reply_markup=markup)
+    try:
+        bot.edit_message_reply_markup(message.chat.id, message.reply_to_message.message_id, reply_markup=markup)
+    except:
+        pass
     bot.reply_to(message, "done")
 
 
@@ -175,7 +179,7 @@ def send_all(id):
         markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
         markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                    telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-        message = bot.send_message(user, "*{}*\n{}\n".format(clars[id]["subject"], clars[id]["text"]), parse_mode="Markdown", reply_markup=markup)
+        message = bot.send_message(user, "*{}* - {}\n{}\n".format(clars[id]["subject"], clars[id]["user"], clars[id]["text"]), parse_mode="Markdown", reply_markup=markup)
         messages[message.message_id] = id
 
 

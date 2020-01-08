@@ -13,4 +13,4 @@ def do():
     put("./config/generated/cms.ranking.conf", "~/cms/config/")
 
     with cd("cms"):
-        sudo("./prerequisites.py install -y")
+        sudo("python3 prerequisites.py -y install")

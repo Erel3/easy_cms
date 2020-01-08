@@ -8,9 +8,10 @@ def install():
     sudo("dpkg --add-architecture i386")
     sudo("apt-get update")
     sudo("DEBIAN_FRONTEND=noninteractive apt-get -y upgrade")
-    sudo("DEBIAN_FRONTEND=noninteractive apt-get -y install wine build-essential "\
-         "openjdk-8-jre openjdk-8-jdk fpc postgresql postgresql-client gettext "\
-         "python2.7 iso-codes shared-mime-info stl-manual cgroup-lite dos2unix "\
-         "nginx-full php7.0-cli php7.0-fpm texlive-latex-base a2ps gcj-jdk "\
-         "haskell-platform htop tmux python-pip postgresql-server-dev-9.5 "\
-         "libcups2-dev apache2-utils")
+    sudo("DEBIAN_FRONTEND=noninteractive \
+        apt-get -yq install wine-stable build-essential openjdk-8-jdk-headless fp-compiler \
+        postgresql postgresql-client python3.6 cppreference-doc-en-html \
+        cgroup-lite dos2unix libcap-dev zip python3.6-dev libpq-dev libcups2-dev \
+        libyaml-dev libffi-dev python3-pip nginx-full python2.7 php7.2-cli \
+        php7.2-fpm a2ps texlive-latex-base haskell-platform rustc \
+        mono-mcs apache2-utils")

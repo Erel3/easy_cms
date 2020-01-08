@@ -32,7 +32,7 @@ def check_secret(message):
     if len(message.text.split(' ', 1)) > 1:
         if(message.text.split(' ', 1)[1] == config.secret):
             users[message.chat.id] = {}
-            bot.reply_to(message, "correct")
+            bot.delete_message(message.chat.id, message.message_id)
         else:
             bot.reply_to(message, "wrong secret")
 
@@ -88,10 +88,10 @@ def answer_clar(message):
     markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
             telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
     try:
-        bot.edit_message_reply_markup(message.chat.id, message.reply_to_message.message_id, reply_markup=markup)
+        bot.edit_message_text(chat_id=message.chat.id, message_id=message.reply_to_message.message_id, text="*{}* - {}\n{}\n\n`@{}\n{}`\n".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], message.from_user.username, message.text), reply_markup=markup, parse_mode="Markdown")
     except:
         pass
-    bot.reply_to(message, "done")
+    bot.delete_message(message.chat.id, message.message_id)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -120,7 +120,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=markup)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"]), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "yes"
         if call.data == 'answer_no':
             markup = telebot.types.InlineKeyboardMarkup(row_width=2)
@@ -129,7 +129,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=markup)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"]), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "no"
         if call.data == 'answer_aitd':
             markup = telebot.types.InlineKeyboardMarkup(row_width=2)
@@ -138,7 +138,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='☑️Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=markup)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"]), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "answered"
         if call.data == 'answer_iq':
             markup = telebot.types.InlineKeyboardMarkup(row_width=2)
@@ -147,7 +147,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='☑️Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=markup)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"]), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "invalid"
         if call.data == 'answer_nc':
             markup = telebot.types.InlineKeyboardMarkup(row_width=2)
@@ -156,7 +156,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='☑️No comment', callback_data='answer_nc'))
-            bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=markup)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"]), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "nocomment"
         sess.post(ans_link, {"ref": ref,
                              "reply_question_quick_answer": reply_question_quick_answer,
@@ -216,13 +216,19 @@ def parse_cms():
 
 
 def start(id):
+    global users
     global contest_id
     contest_id = id
     signal.signal(signal.SIGINT, signal_handler)
     print("Press Ctrl+C to exit")
     cycle = 0
     while True:
-        if cycle % 10 == 0:
-            parse_cms()
+        try:
+            if users and cycle % 10 == 0:
+                parse_cms()
+            get_messages()
+        except SystemExit:
+            raise
+        except:
+            pass
         cycle += 1
-        get_messages()

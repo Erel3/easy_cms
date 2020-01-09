@@ -234,7 +234,6 @@ def start(id):
             if users and cycle % 10 == 0:
                 parse_cms()
             get_messages()
-            raise NameError('HiThere')
         except SystemExit:
             raise
         except Exception:

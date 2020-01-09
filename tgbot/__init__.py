@@ -121,7 +121,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.message.from_user.username), reply_markup=markup, parse_mode="Markdown")
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.from_user.username), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "yes"
         if call.data == 'answer_no':
             markup = telebot.types.InlineKeyboardMarkup(row_width=2)
@@ -130,7 +130,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.message.from_user.username), reply_markup=markup, parse_mode="Markdown")
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.from_user.username), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "no"
         if call.data == 'answer_aitd':
             markup = telebot.types.InlineKeyboardMarkup(row_width=2)
@@ -139,7 +139,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='☑️Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.message.from_user.username), reply_markup=markup, parse_mode="Markdown")
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.from_user.username), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "answered"
         if call.data == 'answer_iq':
             markup = telebot.types.InlineKeyboardMarkup(row_width=2)
@@ -148,7 +148,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='☑️Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='No comment', callback_data='answer_nc'))
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.message.from_user.username), reply_markup=markup, parse_mode="Markdown")
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.from_user.username), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "invalid"
         if call.data == 'answer_nc':
             markup = telebot.types.InlineKeyboardMarkup(row_width=2)
@@ -157,7 +157,7 @@ def query_handler(call):
             markup.add(telebot.types.InlineKeyboardButton(text='Answered in task description', callback_data='answer_aitd'))
             markup.add(telebot.types.InlineKeyboardButton(text='Invalid question', callback_data='answer_iq'),
                        telebot.types.InlineKeyboardButton(text='☑️No comment', callback_data='answer_nc'))
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.message.from_user.username), reply_markup=markup, parse_mode="Markdown")
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="*{}* - {}\n{}\n\n`@{}`".format(clars[clar_id]["subject"], clars[clar_id]["user"], clars[clar_id]["text"], call.from_user.username), reply_markup=markup, parse_mode="Markdown")
             reply_question_quick_answer = "nocomment"
         sess.post(ans_link, {"ref": ref,
                              "reply_question_quick_answer": reply_question_quick_answer,

@@ -10,6 +10,7 @@ import config
 import telebot
 import requests
 import time
+import traceback
 
 import signal
 import sys
@@ -215,6 +216,12 @@ def parse_cms():
             send_all(q_id)
 
 
+def send_all_error():
+    for user, _ in users.items():
+        bot.send_message(user, "*some error occured. please check!*", parse_mode="Markdown")
+
+
+
 def start(id):
     global users
     global contest_id
@@ -227,8 +234,12 @@ def start(id):
             if users and cycle % 10 == 0:
                 parse_cms()
             get_messages()
+            raise NameError('HiThere')
         except SystemExit:
             raise
+        except Exception:
+            traceback.print_exc()
+            send_all_error()
         except:
             pass
         cycle += 1

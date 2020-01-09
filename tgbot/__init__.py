@@ -239,6 +239,7 @@ def start(id):
         except Exception:
             traceback.print_exc()
             send_all_error()
+            pass
         except:
             pass
         cycle += 1

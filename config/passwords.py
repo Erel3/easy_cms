@@ -1,14 +1,14 @@
 awsaclogin = 'cmsadmin'
-awsacpass = '5JNLFII0E5'
+awsacpass = 'T0TSxd0nLC'
 
 awslogin = 'cmsadmin'
-awspass = 'SH2VMODM9X'
+awspass = 'b3ERadP759'
 
-rwsaclogin = 'ranking'
-rwsacpass = 'MTLOPJNWPY'
+rwsaclogin = 'rankinguser'
+rwsacpass = '1nKATxxQJU'
 
 dblogin = 'cmsuser'
-dbpass = 'A4GVTIEUZR'
+dbpass = '0mLbFJXaDx'
 
 rwstalklogin = 'usern4me'
-rwstalkpass = 'R3DTGVI3AR'
+rwstalkpass = 'JwVA7gnLuO'

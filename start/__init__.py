@@ -6,13 +6,17 @@ import config
 
 @parallel
 def do(contest):
-    isalpha = env.host == config.hosts[0]["ip"]
+    counter = 0
     for i, host in enumerate(config.hosts):
         if env.host == host["ip"]:
             id = i
     with settings(warn_only=True):
         run("tmux kill-session -t cms")
-    if isalpha:
-        run("tmux new-session -d -s cms -n AdminServer 'cmsAdminWebServer'\; neww -n Logs 'cmsLogService'\; neww -n RankingServer 'cmsRankingWebServer'\; neww -n ResourceService 'cmsResourceService 0 -a {}'".format(contest))
-    else:
-        run("tmux new-session -d -s cms -n ResourceService 'cmsResourceService {} -a {}'".format(id, contest))
+    tmux_command = "tmux new-session -d -s cms -n ResourceService 'cmsResourceService {id} -a {contest}'\;".format(id=id, contest=contest)
+    if config.hosts[id].get("lb", False):
+        tmux_command += " neww -n Logs 'cmsLogService'\;"
+    if config.hosts[id].get("rws", False):
+        tmux_command += " neww -n RankingServer 'cmsRankingWebServer'\;"
+    if config.hosts[id].get("aws", False):
+        tmux_command += " neww -n AdminServer 'cmsAdminWebServer'\;"
+    run(tmux_command)

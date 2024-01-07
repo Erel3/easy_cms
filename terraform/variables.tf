@@ -1,18 +1,8 @@
-variable "AWS_SSH_KEY_NAME" {
-  description = "Name of the SSH keypair to use in AWS."
-}
+variable "AWS_SSH_KEY_NAME" { description = "Name of the SSH keypair to use in AWS." }
+variable "AWS_DEFAULT_REGION" { description = "AWS Region" }
 
-variable "AWS_DEFAULT_REGION" {
-  description = "AWS Region"
-}
-
-/*
-* General Settings
-*
-*/
-variable "project_name" {
-  description = "Project name. will be used in all resource names"
-}
+## General
+variable "project_name" { description = "Project name. will be used in all resource names" }
 
 data "aws_ami" "distro" {
   most_recent = true
@@ -32,43 +22,42 @@ data "aws_ami" "distro" {
 
 data "aws_availability_zones" "available" {}
 
-/*
-* AWS VPC Variables
-*
-*/
-variable "aws_vpc_cidr_block" {
-  description = "CIDR Block for VPC"
+## VPC
+variable "aws_vpc_cidr_block" { description = "CIDR Block for VPC" }
+
+## EC2 Base
+variable "aws_ec2_user" { description = "Instance user" }
+
+## EC2 Database Variables
+variable "aws_ec2_db_type" { description = "Instance type" }
+
+## EC2 LoadBalancer Variables
+variable "aws_ec2_lb_type" { description = "Instance type" }
+
+## EC2 WebServer Variables
+variable "aws_ec2_ws_type" { description = "Instance type" }
+
+variable "awc_ec2_ws_count" {
+  description = "Instance count"
+  type        = number
 }
 
-/*
-* EC2 Variables
-*
-*/
-variable "aws_ec2_type" {
-  description = "Instance type"
+## EC2 Worker Variables
+variable "aws_ec2_wk_type" { description = "Instance type" }
+
+variable "awc_ec2_wk_count" {
+  description = "Instance count"
+  type        = number
 }
 
-variable "aws_ec2_user" {
-  description = "ec2-instance-user"
-}
-variable  "awc_ec2_count" {
-  description = "Ec2 instance count"
-  type = number
-}
 
-/*
-* TAGs
-*
-*/
+## TAGs
 variable "default_tags" {
   description = "Default tags for all resources"
-  type        = map
+  type        = map(any)
 }
 
-/*
-* Inventory File
-*
-*/
+## Inventory File
 variable "inventory_file" {
   description = "Where to store the generated inventory file"
 }

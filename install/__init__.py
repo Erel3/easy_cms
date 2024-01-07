@@ -11,18 +11,18 @@ from .nginx import *
 
 @parallel
 def do():
-    isalpha = env.host == config.hosts[0]["ip"]
     put("./config/generated/hosts", "~/")
     sudo("cp hosts /etc/hosts")
     deps.install()
     cms.install()
-    if isalpha:
-        db.configure()
-    if isalpha:
-        nginx.configure()
 
 
 @task
 def initdb():
+    db.configure()
     run("cmsInitDB")
     run("cmsAddAdmin -p {1} {0}".format(config.awslogin, config.awspass))
+
+@task
+def initnginx():
+    nginx.configure()

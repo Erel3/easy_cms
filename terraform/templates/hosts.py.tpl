@@ -4,13 +4,15 @@
 # dns address can be used instead of ip
 
 hosts = [
-${ip_alpha},
-${ip_beta},
+${ip_db},
+${ip_lb},
+${ip_ws},
+${ip_wk},
 ]
 
 # servers connection settings
 user = "${ec2_username}"
-key_filename = "~/work/keys/${keyname}.pem"
+key_filename = "~/Work/keys/${keyname}.pem"
 
 localipmask = "${local_subnet}"
 

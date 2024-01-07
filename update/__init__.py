@@ -14,3 +14,7 @@ def do():
 
     with cd("cms"):
         sudo("python3 prerequisites.py -y install")
+
+    put("./config/generated/nginx.conf", "~/cms/config/")
+    sudo("cp cms/config/nginx.conf /etc/nginx/nginx.conf")
+    sudo("service nginx restart")
